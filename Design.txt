@@ -32,5 +32,5 @@ List alarms.
 time - [playlist or default]
 
 Delete alarms.
--d 13:00 or * or *:56 or 4:*.
+-d 13:43
 
