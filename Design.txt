@@ -1,0 +1,36 @@
+Required functionality:
+1. Wake computer from sleep:
+    Use pmset to wake up computer at time.
+
+2. Set volume controls.
+    Use osax (os apple script) to set_volume().
+
+3. Set sound output to airplay Bose speakers.
+    Set asrc https://discussions.apple.com/thread/4629093?tstart=0
+
+4. Run spotify with playlist id at certain time.
+    Use launchd and apple script api https://developer.spotify.com/applescript-api/
+
+5. Pause spotify after 30 minutes.
+    Use launchd and apple script api.
+
+6. Set sound back to internal. Cancel launcd and pmsets.
+
+
+
+User Features:
+Add new command, "spotify-alarm" with following paramters:
+
+Set an alarm.
+spotify-alarm [req military time 13:00]
+
+Set a song to play w/ alarm or it will default to something.
+spotify-alarm -uri spotify:user:vikram31291:playlist:3W4TedzjrpwawyKRa0Hyo2 or spotify:track:2yWtLaPCOUDyi7f1lOXCn5
+
+List alarms.
+-l or no parameters.
+time - [playlist or default]
+
+Delete alarms.
+-d 13:00 or * or *:56 or 4:*.
+
