@@ -1,7 +1,18 @@
 #!/usr/bin/env python
 import sys
+import os
 import argparse
 import shelve
+from appdirs import AppDirs
+
+DIRS = AppDirs('spotify-alarm', 'vikram')
+if not os.path.exists(DIRS.user_data_dir):
+    os.makedirs(DIRS.user_data_dir)
+
+DB_FILENAME = "alarm_data"
+SHELVE_PATH = os.path.join(DIRS.user_data_dir,DB_FILENAME)
+
+URI_KEY = 'default_uri'
 
 def validate_time(time):
     if time:
@@ -34,6 +45,9 @@ def set_alarm_helper(time, uri):
 
 def set_default(uri):
     #sets default playlist/track.
+    db = shelve.open(SHELVE_PATH)
+    db[URI_KEY] = uri
+    db.close()
     return
 
 def delete_alarm(time):
@@ -42,6 +56,12 @@ def delete_alarm(time):
 
 def print_alarm():
     #print list
+    db = shelve.open(SHELVE_PATH)
+    try:
+        print db[URI_KEY]
+    except KeyError:
+        print 'No default alarm set.'
+
     return
 
 def main():
@@ -60,10 +80,10 @@ def main():
         elif args.time:
             print 'set alarm at time'
         elif args.uri:
-            print 'set default uri'
+            set_default(args.uri)
 
         if args.list or not len(sys.argv) > 1:
-            print 'list of alarms'
+            print_alarm()
 
         if args.delete:
             print 'delete alarm at time'
